@@ -105,7 +105,32 @@ public class Lexer {
                         switch (currentChar) {
                             case 'i':
                                 //pri
-                                break;
+                                if (this.peek()) {
+                                    currentChar = this.advance();
+                                    switch (currentChar) {
+                                        case 'n':
+                                            //prin
+                                            if (this.peek()) {
+                                                currentChar = this.advance();
+                                                switch (currentChar) {
+                                                    //print
+                                                    case 't':
+                                                        currentChar = this.advance();
+                                                        switch (currentChar) {
+                                                            case ' ':
+                                                                return new LexerToken(26, "print", this.parsingLine, this.parsingIndex - 4);
+                                                            default:
+                                                                currentChar = this.advance();
+                                                                return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 4);
+                                                        }
+                                                    default:
+                                                        return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 3);
+                                                }
+                                            }
+                                        default:
+                                            return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 3);
+                                    }
+                                }
                             case 'o':
                                 //pro
                                 if (this.peek()) {
@@ -117,15 +142,15 @@ public class Lexer {
                                                 case ' ':
                                                     return new LexerToken(10, "prog", this.parsingLine, this.parsingIndex - 3);
                                                 default:
+                                                    currentChar = this.advance();
                                                     return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 3);
                                             }
                                         default:
                                             return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 3);
-
                                     }
                                 }
                             default:
-                                return new LexerToken(10, "prog", this.parsingLine, this.parsingIndex - 2);
+                                return new LexerToken(99, "error", this.parsingLine, this.parsingIndex - 3);
                         }
                     }
                 case 'a':
