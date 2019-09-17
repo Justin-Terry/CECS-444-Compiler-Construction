@@ -15,7 +15,7 @@ public class FileInput {
     }
 
     public String getFileContents() {
-        return " prog     print  ";
+        return "  prog main { print( \"ASCII:\", \" A= \", 65, \" Z= \", 90 ); }";
         //main { print( \"ASCII:\", \" A= \", 65, \" Z= \", 90 ); }";
     }
 
