@@ -15,8 +15,25 @@ public class FileInput {
     }
 
     public String getFileContents() {
-        return "  prog main { print( \"ASCII:\", \" A= \", 65, \" Z= \", 90 ); }";
+        return "prog     main       {    print       ( \"ASCII:\"   , \" A= \" , 65    , \" Z= \"    ,    9.5   )   ;     }";
         //main { print( \"ASCII:\", \" A= \", 65, \" Z= \", 90 ); }";
+    }
+
+    public String readFileToString() {
+        StringBuilder sb = new StringBuilder();
+        try{
+            mBufferedReader = new BufferedReader(new FileReader("testfile.txt"));
+            String line;
+            while ((line = mBufferedReader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            mBufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 
     public Map<String, Integer> readFileToMap(String filepath) {
@@ -26,7 +43,7 @@ public class FileInput {
             String line;
             while ((line = mBufferedReader.readLine()) != null) {
                 String[] values = line.split(" ");
-                mMap.put(values[1], Integer.valueOf(values[0]));
+                mMap.put(values[2], Integer.valueOf(values[0]));
             }
             mBufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -35,5 +52,24 @@ public class FileInput {
             e.printStackTrace();
         }
         return mMap;
+    }
+
+    public Map<Integer, String> getIdToStringMap(){
+        Map<Integer, String> idToStringMap = new HashMap();
+        try{
+            mBufferedReader = new BufferedReader(new FileReader("lexermapping.txt"));
+            String line;
+            while ((line = mBufferedReader.readLine()) != null) {
+                String[] values = line.split(" ");
+                idToStringMap.put(Integer.valueOf(values[0]), values[2]);
+            }
+            mBufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return idToStringMap;
+
     }
 }
