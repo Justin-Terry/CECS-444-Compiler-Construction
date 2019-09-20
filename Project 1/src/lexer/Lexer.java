@@ -88,9 +88,14 @@ public class Lexer {
                                 }
                                 sb = new StringBuilder();
                             }
-                            char symbol = lexerInput.advance();
+                            char symbol = lexerInput.peek();
                             if (symbol != ' ') {
-                                showToken(tokenToIdMap.get(Character.toString(symbol)), Character.toString(symbol), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                if(Character.isDigit(symbol)) {
+                                    handleDigit();
+                                }else{
+                                    symbol = lexerInput.advance();
+                                    showToken(tokenToIdMap.get(Character.toString(symbol)), Character.toString(symbol), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
+                                }
                             }
                         }
                         if(lexerInput.peek() == ' ') {
@@ -157,7 +162,6 @@ public class Lexer {
     public void handleMinus(StringBuilder sb) {
         String beforeMinus = "";
         int minusIndex = 0;
-        System.out.println(sb.toString());
         if(sb.length() > 0 && Character.isDigit(sb.toString().charAt(0))) {
             // Preceding characters are a number
             int index = 0;
