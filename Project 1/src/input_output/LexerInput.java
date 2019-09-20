@@ -10,7 +10,7 @@ public class LexerInput {
 
     private LexerInput() {
         FileInput mFI = new FileInput();
-        this.programString = mFI.readFileToString();
+        this.programString = mFI.readFileUsingScanner();
         System.out.println("LEXERINPUT: " + programString);
         this.parsingIndex = -1;
         this.lineIndex = 0;

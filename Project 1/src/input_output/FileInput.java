@@ -1,11 +1,9 @@
 package input_output;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class FileInput {
     private BufferedReader mBufferedReader;
@@ -70,6 +68,24 @@ public class FileInput {
             e.printStackTrace();
         }
         return idToStringMap;
+
+    }
+
+    public String readFileUsingScanner() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            File file = new File("testfile.txt");
+            Scanner input = new Scanner(file);
+            while(input.hasNextLine()) {
+                sb.append(input.nextLine() + '\n');
+            }
+
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+
 
     }
 }
