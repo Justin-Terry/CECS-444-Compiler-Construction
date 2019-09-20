@@ -39,7 +39,7 @@ public class Lexer {
             while(true) {
                 // Gets full known tokens
                 if(lexerInput.peek() != ' ' && !tokenToIdMap.containsKey(Character.toString(lexerInput.peek())) && !tokenToIdMap.containsKey(sb.toString())){
-                    if(Character.isDigit(lexerInput.peek())){
+                    if(Character.isDigit(lexerInput.peek()) && sb.length() == 0){
                         handleDigit();
                     } else if(lexerInput.peek() == '\n'){
                         lexerInput.advance();
@@ -49,30 +49,48 @@ public class Lexer {
                     }
                 } else {
                     if (lexerInput.peek() == ' ') {
+                        if(!tokenToIdMap.containsKey(sb.toString()) && sb.length() > 0){
+                            showToken(tokenToIdMap.get("id"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                        }
                         lexerInput.advance();
                     } else if (tokenToIdMap.containsKey(Character.toString(lexerInput.peek()))) {
                         if(lexerInput.peek() == '"') {
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleString();
                         }
+                        if(lexerInput.peek() == '-'){
+                            if(tokenToIdMap.containsKey(sb.toString())) {
+                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
+                                handleMinus(sb);
+                            } else {
+                                handleMinus(sb);
+                            }
+                            sb = new StringBuilder();
+                        }
                         if(lexerInput.peek() == '/') {
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleSlash();
                         }
                         else {
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+                                if(tokenToIdMap.containsKey(sb.toString())) {
+                                    showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                }else {
+                                    if (sb.length() > 0) {
+                                        showToken(tokenToIdMap.get("id"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
+                                    }
+                                }
                                 sb = new StringBuilder();
                             }
                             char symbol = lexerInput.advance();
                             if (symbol != ' ') {
-                                showToken(tokenToIdMap.get(Character.toString(symbol)), Character.toString(symbol), lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+                                showToken(tokenToIdMap.get(Character.toString(symbol)), Character.toString(symbol), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                             }
                         }
                         if(lexerInput.peek() == ' ') {
@@ -87,11 +105,11 @@ public class Lexer {
             }
             if(sb.length() > 0) {
                 if(tokenToIdMap.containsKey(sb.toString())) {
-                    showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+                    showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                 }
             }
         }
-        showToken(tokenToIdMap.get("$"),"",lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+        showToken(tokenToIdMap.get("$"),"",lexerInput.getParsingLine(), lexerInput.getLineIndex());
     }
 
     public void handleString() {
@@ -100,7 +118,7 @@ public class Lexer {
         while(lexerInput.peek() != '"') {
             sb.append(lexerInput.advance());
         }
-        showToken(tokenToIdMap.get("\""), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex() - sb.length());
+        showToken(tokenToIdMap.get("\""), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length());
         lexerInput.advance();
     }
 
@@ -109,12 +127,11 @@ public class Lexer {
         int currentLine = lexerInput.getParsingLine();
         if(lexerInput.peek() == '/') {
             // Comment
-            System.out.println("COMMENT");
             while(lexerInput.hasNext() && lexerInput.getParsingLine() == currentLine){
                 lexerInput.advance();
             }
         } else {
-            showToken(tokenToIdMap.get("/"), "/", lexerInput.getParsingLine(), lexerInput.getParsingIndex());
+            showToken(tokenToIdMap.get("/"), "/", lexerInput.getParsingLine(), lexerInput.getLineIndex());
         }
     }
 
@@ -125,11 +142,49 @@ public class Lexer {
         }
         if(Float.parseFloat(sb.toString()) % 1 != 0) {
             // Number is a float
-            showToken(tokenToIdMap.get("myfloat"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex() - sb.length(), Float.parseFloat(sb.toString()));
+            showToken(tokenToIdMap.get("myfloat"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length(), Float.parseFloat(sb.toString()));
         } else {
             // Number is an int
-            showToken(tokenToIdMap.get("myint"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getParsingIndex() - sb.length(), Integer.parseInt(sb.toString()));
+            showToken(tokenToIdMap.get("myint"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length(), Integer.parseInt(sb.toString()));
         }
+        if(lexerInput.peek() != ' ' && !tokenToIdMap.containsKey(Character.toString(lexerInput.peek()))){
+            showToken(tokenToIdMap.get("myerror"), "error", lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length());
+            System.out.println("ERROR! Compiler terminating");
+            System.exit(0);
+        }
+    }
+
+    public void handleMinus(StringBuilder sb) {
+        String beforeMinus = "";
+        int minusIndex = 0;
+        System.out.println(sb.toString());
+        if(sb.length() > 0 && Character.isDigit(sb.toString().charAt(0))) {
+            // Preceding characters are a number
+            int index = 0;
+            while(Character.isDigit(sb.toString().charAt(index))){
+                beforeMinus += sb.toString().charAt(index);
+                index++;
+            }
+            minusIndex = index;
+            if(Float.parseFloat(beforeMinus.toString()) % 1 != 0) {
+                // Number is a float
+                showToken(tokenToIdMap.get("myfloat"), beforeMinus, lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length(), Float.parseFloat(beforeMinus));
+            } else {
+                // Number is an int
+                showToken(tokenToIdMap.get("myint"), beforeMinus, lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length(), Integer.parseInt(beforeMinus));
+            }
+        } else if (sb.length() > 0){
+            // Preceding characters are an id
+            int index = 0;
+            while(index < sb.length() && sb.toString().charAt(index) != ' '){
+                beforeMinus += sb.toString().charAt(index);
+                index++;
+            }
+            minusIndex = index;
+            showToken(tokenToIdMap.get("id"), beforeMinus, lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length());
+        }
+        showToken(tokenToIdMap.get("-"), "minus", lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.length());
+        lexerInput.advance();
     }
 
     public void handleComment() {

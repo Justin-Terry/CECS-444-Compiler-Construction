@@ -5,6 +5,7 @@ public class LexerInput {
     private String programString;
     private static int parsingIndex;
     private static int parsingLine;
+    private static int lineIndex;
 
 
     private LexerInput() {
@@ -12,6 +13,7 @@ public class LexerInput {
         this.programString = mFI.readFileToString();
         System.out.println("LEXERINPUT: " + programString);
         this.parsingIndex = -1;
+        this.lineIndex = 0;
         this.parsingLine = 0;
     }
 
@@ -20,6 +22,10 @@ public class LexerInput {
             lexerInput = new LexerInput();
         }
         return lexerInput;
+    }
+
+    public int getLineIndex(){
+        return this.lineIndex;
     }
 
     public char peek() {
@@ -40,8 +46,10 @@ public class LexerInput {
     public char advance() {
         if (this.programString.length() > this.parsingIndex + 1) {
             this.parsingIndex++;
+            this.lineIndex++;
             if(this.programString.charAt(this.parsingIndex) == '\n'){
                 parsingLine++;
+                lineIndex = 0;
             }
             return this.programString.charAt(this.parsingIndex);
         }

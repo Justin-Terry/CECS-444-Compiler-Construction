@@ -1,3 +1,4 @@
+2 id id
 3 int myint
 4 float myfloat
 5 string "
@@ -43,4 +44,5 @@
 55 opge >=
 56 opshl <<
 57 opshr >>
+99 error myerror
 0 eof $

@@ -36,7 +36,7 @@ public class LexerToken {
         //(Tok: 10 lin= 1,1 str= "prog")
         StringBuilder mStringBuilder = new StringBuilder();
         mStringBuilder.append("(Tok: " + this.id + " ");
-        mStringBuilder.append("lin= " + (this.line+1) + "," + (this.position-3) + " ");
+        mStringBuilder.append("lin= " + (this.line+1) + " ");
         mStringBuilder.append("str= \"" + this.str + "\"");
 
         if(this.intValue != null) {
