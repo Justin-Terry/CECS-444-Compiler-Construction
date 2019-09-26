@@ -1,3 +1,9 @@
+/*
+    Author: Justin Terry
+    Email: justin.terry@student.csulb.edu
+    Description: This class outlines different types of tokens and provides an easy toString function to display them.
+ */
+
 package lexer;
 
 public class LexerToken {

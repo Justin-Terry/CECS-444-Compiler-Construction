@@ -1,3 +1,9 @@
+/*
+    Author: Justin Terry
+    Email: justin.terry@student.csulb.edu
+    Description: This class consists of the functions necessary to generate tokens from an input string.
+ */
+
 package lexer;
 
 import input_output.FileInput;

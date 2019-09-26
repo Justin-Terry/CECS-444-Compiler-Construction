@@ -1,3 +1,9 @@
+/*
+    Author: Justin Terry
+    Email: justin.terry@student.csulb.edu
+    Description: This class just gets and instance of the lexer and starts the parsing function.
+ */
+
 package application;
 
 import input_output.FileInput;

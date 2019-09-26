@@ -1,3 +1,9 @@
+/*
+    Author: Justin Terry
+    Email: justin.terry@student.csulb.edu
+    Description: This class provides the lexer with an input and functions like peek and advance.
+ */
+
 package input_output;
 
 public class LexerInput {
@@ -10,8 +16,8 @@ public class LexerInput {
 
     private LexerInput() {
         FileInput mFI = new FileInput();
-        this.programString = mFI.readFileUsingScanner();
-        System.out.println("LEXERINPUT: " + programString);
+        //this.programString = mFI.readFileUsingScanner();
+        this.programString = mFI.getScannerInput();
         this.parsingIndex = -1;
         this.lineIndex = 0;
         this.parsingLine = 0;

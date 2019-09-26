@@ -1,3 +1,10 @@
+/*
+    Author: Justin Terry
+    Email: justin.terry@student.csulb.edu
+    Description: This class creates multiple methods of reading input including from files and from std in. It also
+                 reads the lexermapping file into Maps for the LexerInput class.
+ */
+
 package input_output;
 
 import java.io.*;
@@ -10,11 +17,6 @@ public class FileInput {
 
     public FileInput() {
 
-    }
-
-    public String getFileContents() {
-        return "prog     main       {    print       ( \"ASCII:\"   , \" A= \" , 65    , \" Z= \"    ,    9.5   )   ;     }";
-        //main { print( \"ASCII:\", \" A= \", 65, \" Z= \", 90 ); }";
     }
 
     public String readFileToString() {
@@ -85,7 +87,20 @@ public class FileInput {
         }
         System.out.println(sb.toString());
         return sb.toString();
+    }
 
+    public String getScannerInput() {
+        Scanner input = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
+        while(input.hasNextLine()){
+            String s = input.nextLine();
+            if(s.equals("")) {
+                break;
+            }
+            sb.append(s + '\n');
+        }
+        input.close();
+        return sb.toString();
 
     }
 }
