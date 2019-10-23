@@ -34,6 +34,7 @@ public class LexerInput {
         return this.lineIndex;
     }
 
+    // Returns next character
     public char peek() {
         if(this.hasNext() && this.programString.charAt(this.parsingIndex + 1) != ' ' && this.programString.charAt(this.parsingIndex + 1) != '\n'){
             return this.programString.charAt(parsingIndex + 1);
@@ -42,6 +43,7 @@ public class LexerInput {
         }
     }
 
+    // Returns true if there is a next character
     public boolean hasNext() {
         if (this.programString.length() > this.parsingIndex + 1) {
             return true;
@@ -49,6 +51,7 @@ public class LexerInput {
         return false;
     }
 
+    // Returns the next character and advances the pointer to the next character
     public char advance() {
         if (this.programString.length() > this.parsingIndex + 1) {
             this.parsingIndex++;

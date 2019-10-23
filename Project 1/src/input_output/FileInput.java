@@ -19,6 +19,7 @@ public class FileInput {
 
     }
 
+    // Used to read a file into a string
     public String readFileToString() {
         StringBuilder sb = new StringBuilder();
         try{
@@ -36,6 +37,7 @@ public class FileInput {
         return sb.toString();
     }
 
+    // Used to read a file into a map
     public Map<String, Integer> readFileToMap(String filepath) {
         Map<String, Integer> mMap = new HashMap<String, Integer>();
         try{
@@ -54,6 +56,7 @@ public class FileInput {
         return mMap;
     }
 
+    // Used to read a file into a map
     public Map<Integer, String> getIdToStringMap(){
         Map<Integer, String> idToStringMap = new HashMap();
         try{
@@ -73,6 +76,7 @@ public class FileInput {
 
     }
 
+    // Used to read a file with a Scanner
     public String readFileUsingScanner() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -89,6 +93,7 @@ public class FileInput {
         return sb.toString();
     }
 
+    // Used to get input from STD in
     public String getScannerInput() {
         Scanner input = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();

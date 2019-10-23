@@ -5,3 +5,14 @@ var _rx = input ( float );
 var circum = 2 * pi * rx;
 print( "Circumf= ", circum );
 }
+
+if(this <= yo){
+print("yo");
+} elseif( this >= foo){
+print("foo");
+} else{
+print("bar");
+}
+
+id >> << >> >= 5 > 5 < 7 <= > <
+

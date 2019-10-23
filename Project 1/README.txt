@@ -22,6 +22,7 @@ Contents:
 	│ 	└── LexerToken.java
 	│ 
 	lexermapping.txt
+	README.txt
 	
 External Requirements: 
 
