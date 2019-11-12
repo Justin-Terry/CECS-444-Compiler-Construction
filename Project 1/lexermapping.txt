@@ -44,5 +44,6 @@
 55 opge >=
 56 opshl <<
 57 opshr >>
+58 kwdvars kvars
 99 error myerror
 0 eof $

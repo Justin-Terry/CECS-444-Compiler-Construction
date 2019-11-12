@@ -42,7 +42,6 @@ public class Lexer {
             while(true) {
                 // Gets full known tokens
                 if(lexerInput.peek() != ' ' && !tokenToIdMap.containsKey(Character.toString(lexerInput.peek())) && !tokenToIdMap.containsKey(sb.toString())){
-                    System.out.println("here");
                     if(Character.isDigit(lexerInput.peek()) && sb.length() == 0){
                         handleDigit();
                     } else if(lexerInput.peek() == '\n'){
@@ -62,7 +61,7 @@ public class Lexer {
                         if(lexerInput.peek() == '"') {
                             // Found a string
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleString();
@@ -70,7 +69,7 @@ public class Lexer {
                         if(lexerInput.peek() == '-'){
                             // Found a minus sign
                             if(tokenToIdMap.containsKey(sb.toString())) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
+                                showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
                                 handleMinus(sb);
                             } else {
                                 handleMinus(sb);
@@ -80,21 +79,21 @@ public class Lexer {
                         if(lexerInput.peek() == '/') {
                             // Found a slash, could be a comment
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleSlash();
                         }
                         if(lexerInput.peek() == '=') {
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleEquals();
                         }
                         if(lexerInput.peek() == '>' || lexerInput.peek() == '<'){
                             if (sb.length() > 0) {
-                                showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 sb = new StringBuilder();
                             }
                             handleArrows();
@@ -102,7 +101,7 @@ public class Lexer {
                         else {
                             if (sb.length() > 0) {
                                 if(tokenToIdMap.containsKey(sb.toString())) {
-                                    showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                                    showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                                 }else {
                                     if (sb.length() > 0) {
                                         showToken(tokenToIdMap.get("id"), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex() - sb.toString().length());
@@ -134,7 +133,7 @@ public class Lexer {
             }
             if(sb.length() > 0) {
                 if(tokenToIdMap.containsKey(sb.toString())) {
-                    showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+                    showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
                 }
             }
         }
@@ -186,7 +185,7 @@ public class Lexer {
                 showToken(tokenToIdMap.get("<="), "<=", lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
             }
         } else{
-            showToken(tokenToIdMap.get(sb.toString()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
+            showToken(tokenToIdMap.get(sb.toString().trim()), sb.toString(), lexerInput.getParsingLine(), lexerInput.getLineIndex()-sb.toString().length());
         }
         lexerInput.advance();
     }
