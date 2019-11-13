@@ -1,4 +1,4 @@
-Project 1: Lexer
+﻿Project 1: Lexer
 CECS 444 Sec 01 5191 Compiler Construction
 
 Team JKT
@@ -34,14 +34,13 @@ Setup:
 
 Sample Invocation:
 
-	>> prog main { // Find the circumference of a circle.
-	>> var pi = 007;
-	>> print( "Input radius> " );
-	>> var rx = input ( float );
-	>> var circum = 2 * pi * rx;
-	>> print( "Circumf= ", circum );
-	>> }
-	>> 
+prog main { // Find the circumference of a circle.
+  var pi = 007;
+  print( "Input radius> " );
+  var rx = input ( float );
+  var circum = 2 * pi * rx;
+  print( "Circumf= ", circum );
+}
 
 Sample Results:
 
