@@ -18,18 +18,32 @@ public class Parser {
         startQueue();
     };
 
+    public GrammarNode getRootOfPST() {
+        return this.root;
+    }
+
     public void parseInput() {
         GrammarSymbol starter = parserStack.pop();
-
         int ruleNumber = parseTable.fetchCell(starter.getSymbolAsString() + input.peek());
-        System.out.println("Rule Number: " + ruleNumber);
-        root = new GrammarNode(starter, ruleNumber);
+        root = new GrammarNode(starter, ruleNumber, null);
         parseTree(root, input.peek());
+        removeEPS(root);
         System.out.println(root);
     }
 
+    private void removeEPS(GrammarNode gn) {
+        if(gn == null){ return; };
+        for (Iterator<GrammarNode> it = gn.getChildren().iterator(); it.hasNext(); ) {
+            GrammarNode g = it.next();
+            if (g.getChildren().size() != 0) {
+                removeEPS(g);
+            }else if(!g.getValue().isTerminal()) {
+                it.remove();
+            }
+        }
+    }
+
     public String nextInput() {
-        System.out.println(input.toString());
         if(!input.isEmpty()) {
             String temp = input.peek();
             input.remove();
@@ -49,19 +63,22 @@ public class Parser {
 
 
     public void startStack() {
-        parserStack.push(new GrammarSymbol("Vargroup", false));
+        parserStack.push(new GrammarSymbol("Pgm", false));
     }
 
     public void parseTree(GrammarNode root, String value) {
         if (!root.getValue().isTerminal()){
-            System.out.println("SEARCHING FOR: " + root.getValueAsString() + input.peek());
             int ruleNumber = parseTable.fetchCell(root.getValueAsString() + input.peek());
+            if(ruleNumber == -1){
+                ruleNumber = parseTable.fetchCell(root.getValueAsString() + "EPSILON");
+            }
+
             if (GrammarRulesRepo.getInstance().getRuleRHS(ruleNumber) != null) {
                 root.addChildrenForRule(ruleNumber);
             }
+
             for (GrammarNode gn : root.getChildren()) {
                 parseTree(gn, value);
-                System.out.println("Node: " + root.getValueAsString() + " VALUE: " + input.peek());
                 if(gn.getValueAsString().equals(input.peek())){
                     nextInput();
                 }

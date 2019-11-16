@@ -56,6 +56,25 @@ public class ParseTable {
         table.put("Simplekind" + "kstring", 11);
         table.put("Varid" + "id", 13);
         table.put("Varspec" + "id", 12);
+        table.put("Pgm" + "kwdprog", 14);
+        table.put("Fcndefs" + "kwdfcn", 15);
+        table.put("Fcndefs" + "EPSILON", 16);
+        table.put("Fcndef" + "kwdfcn", 17);
+        table.put("Fcnheader" + "kwdfcn", 18);
+        table.put("Fcnid" + "id", 19);
+        table.put("PParmlist" + "parens1", 20);
+        table.put("Q" + "parens2", 21);
+        table.put("Q" + "id", 22);
+        table.put("Q" + "aster", 22);
+        table.put("Varspecs" + "id", 23);
+        table.put("More_varspecs"+ "comma", 24);
+        table.put("Retkind" + "kint", 26);
+        table.put("Retkind" + "kfloat", 26);
+        table.put("Retkind" + "kstring", 26);
+        table.put("Main" + "kwdmain", 27);
+        table.put("BBlock" + "brace1", 28);
+        table.put("Stmts" + "EPSILON", 999);
+
 
 
 

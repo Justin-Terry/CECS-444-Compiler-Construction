@@ -1,5 +1,8 @@
 public class ParserMain {
     public static void main(String args[]) {
-        new Parser().parseInput();
+        Parser p = new Parser();
+        p.parseInput();
+        System.out.println("\n\n");
+        new AST(p.getRootOfPST());
     }
 }

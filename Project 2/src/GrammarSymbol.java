@@ -4,7 +4,12 @@ public class GrammarSymbol {
 
     GrammarSymbol(String value, boolean isTerminal){
         this.value = value;
-        this.isTerminal = isTerminal;
+        Character f = value.charAt(0);
+        if(f.isLowerCase(value.charAt(0))){
+            this.isTerminal = true;
+        } else{
+            this.isTerminal = false;
+        }
     }
 
     public String getSymbolAsString(){
