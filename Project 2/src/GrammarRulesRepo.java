@@ -55,6 +55,7 @@ public class GrammarRulesRepo {
         rules.put(29, constructGS("Stmt semi Stmts"));
         //rules.put(30, constructGS("EPSILON"));
         rules.put(31, constructGS(" "));
+        rules.put(32, constructGS("kvar Varspec"));
         //rules.put(999, constructGS("EPSILON"));
 
     }

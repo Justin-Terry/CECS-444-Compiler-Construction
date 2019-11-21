@@ -37,6 +37,7 @@ public class ParseTable {
         table.put("Basekind" + "kfloat", 2);
         table.put("Basekind" + "kstring", 3);
         table.put("Vargroup" + "kwdvars", 4);
+        table.put("Vargroup" + "kvar", 32);
         table.put("Vargroup" + "EPSILON", 5);
         table.put("PPvarlist" + "parens1", 6);
         table.put("Varlist"+"kint", 7);

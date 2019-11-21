@@ -1,3 +1,4 @@
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,13 +18,12 @@ public class AST {
 
     private void convert(GrammarNode g) {
         if(g == null) {return;}
-
+        System.out.println(g.getValueAsString());
         if(g.getChildren().size() > 0) {
             for (int i = 0; i < g.getChildren().size(); i++) {
                 convert(g.getChildren().get(i));
             }
         }else{
-            System.out.println(g.getValueAsString());
             if(!g.getParent().getValue().isTerminal() && g.getValue().isTerminal()){
                 List<GrammarNode> nodes = g.getParent().getChildren();
                 System.out.println(nodes.size());
@@ -36,8 +36,9 @@ public class AST {
                 } else {
                     g.parent = null;
                     treeRoot = g;
+                    System.out.println("NEW ROOT: " + treeRoot.getValueAsString());
                 }
-                System.out.println("Parent: " + (g.parent == null ? "Null" : g.getParent().getValueAsString() ));
+                System.out.println(g.getValueAsString() + " Parent: " + (g.parent == null ? "Null" : g.getParent().getValueAsString() ));
                 nodes.remove(g);
                 System.out.println(nodes.size());
 

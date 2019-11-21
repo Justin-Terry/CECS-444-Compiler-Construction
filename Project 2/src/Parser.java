@@ -67,6 +67,7 @@ public class Parser {
     }
 
     public void parseTree(GrammarNode root, String value) {
+        System.out.println("STEP: " + root.getValueAsString() + " / " + input.peek());
         if (!root.getValue().isTerminal()){
             int ruleNumber = parseTable.fetchCell(root.getValueAsString() + input.peek());
             if(ruleNumber == -1){

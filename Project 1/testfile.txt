@@ -7,9 +7,7 @@ prog main { // Find the circumference of a circle.
 }
 
 prog main {
-  var a = 5;
-  var b = 6;
-  var c = a + b;
+  int a = 5;
 }
 
 if(this <= yo){

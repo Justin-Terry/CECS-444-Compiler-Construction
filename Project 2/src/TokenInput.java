@@ -49,12 +49,14 @@ public class TokenInput {
         list.put(12, "fcn");
         list.put(15, "kfloat");
         list.put(16, "kint");
+        list.put(26, "kvar");
         list.put(58, "kwdvars");
         list.put(17, "kstring");
         list.put(33, "brace1");
         list.put(34, "brace2");
         list.put(37, "parens1");
         list.put(38, "parens2");
+        list.put(45, "equals");
         list.put(0, "");
 
 

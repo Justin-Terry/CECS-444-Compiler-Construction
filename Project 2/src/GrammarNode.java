@@ -65,7 +65,7 @@ public class GrammarNode {
         sb.append("( Node: " + nodeId + " | Value: " + this.value.getSymbolAsString() +  " | Children: ");
         for(GrammarNode gn : children) {
             sb.append("\n");
-            for(int i = 0; i < distanceToRoot; i++){
+            for(int i = 0; i < distanceToRoot+1; i++){
                 sb.append("    ");
             }
             sb.append(gn.toString());
