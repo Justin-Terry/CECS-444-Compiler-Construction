@@ -13,9 +13,9 @@ public class SymbolTableNode {
     }
 
     public SymbolTableNode addSymbol(Symbol s) {
-        table.put(s.getName(), s);
-        return this;
-    }
+          table.put(s.getName(), s);
+         return this;
+     }
 
     public void display() {
         for(String e : table.keySet()){

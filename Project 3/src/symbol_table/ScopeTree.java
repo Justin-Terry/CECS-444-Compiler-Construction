@@ -23,9 +23,14 @@ public class ScopeTree {
         for(Node rk : n.getRightChildren()){
             parseScopeTree(rk);
         }
-        if(n.getType() == Node.NodeType.ID){
-            SymbolTableNode link = root.addSymbol(new Symbol(n.getValue(), n.getType(), n.getLine(), n.getLeftChildren().get(0).getValue(), n));
-            n.setSctNode(link);
+        if (n.getType() == Node.NodeType.ID){
+            if(n.getLeftChildren().size() > 0) {
+                SymbolTableNode link = root.addSymbol(new Symbol(n.getValue(), n.getType(), n.getLine(), n.getLeftChildren().get(0).getValue(), n));
+                n.setSctNode(link);
+            } else{
+                SymbolTableNode link = root.addSymbol(new Symbol(n.getValue(), n.getType(), n.getLine(), null, n));
+                n.setSctNode(link);
+            }
         }
     }
 

@@ -20,6 +20,8 @@ public class Main {
                 System.out.println(t.findNode(t.root, "1"));
             }else if(in.equals("s")){
                 createSymbolTable(t);
+            }else if(in.equals("")){
+
             } else{
                 getNodes(in, t);
             }
@@ -36,7 +38,7 @@ public class Main {
         char side = getSide(s);
 //        System.out.println(type + " " + value + " " + parent + " " + id + " " + side);
         Node n = new Node(id, parent, value, line, type, side);
-        t.insertNode(n);
+        t.   insertNode(n);
     }
     private static String getType(String s){
         Pattern typePattern = Pattern.compile("Type:.*\\| S");
@@ -58,7 +60,7 @@ public class Main {
         }
         return null;
     }
-    private static String getParent(String s){
+            private static String getParent(String s){
         Pattern typePattern = Pattern.compile("Parent:.*\\)");
         Matcher matcher = typePattern.matcher(s);
         while(matcher.find()) {

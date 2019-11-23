@@ -30,15 +30,16 @@ public class Tree {
         }
     }
 
-    public void insertNode(Node n) {
+    public void insertNode(Node n)       {
+//        System.out.println("INSERT "  + n);
         if(this.root == null) {
             System.out.println("SETTING ROOT");
             this.root = n;
         }else{
             Node parent = findNode(root, n.getParentId());
-            if(n.getSide() == 'l'){
-                parent.getLeftChildren().add(n);
-                n.setParent(parent);
+             if(n.getSide() == 'l'){
+                       parent.getLeftChildren().add(n);
+                  n.setParent(parent);
             } else{
                 parent.getRightChildren().add(n);
                 n.setParent(parent);
@@ -47,26 +48,28 @@ public class Tree {
     }
 
     public Node findNode(Node n, String id) {
+//        System.out.println("FINDING: " + id + " Looking at: " + n.getId()     );
         if(n.getId().equals(id)){
             return n;
-        }else if(n.getLeftChildren().size() > 0){
-            for(Node ns : n.getLeftChildren()) {
-                Node node = findNode(ns, id);
-                if(node != null){
-                    return node;
+        }else {
+            if(n.getLeftChildren().size() > 0){
+                for(Node ns : n.getLeftChildren()) {
+                    Node node = findNode(ns, id);
+                    if(node != null){
+                        return node;
+                    }
                 }
             }
-            return null;
-        }else if(n.getRightChildren().size() > 0){
-            for(Node ns : n.getRightChildren()) {
-                Node node = findNode(ns, id);
-                if(node != null){
-                    return node;
+            if(n.getRightChildren().size() > 0){
+                for(Node ns : n.getRightChildren()) {
+                    Node node = findNode(ns, id);
+                    if(node != null){
+                        return node;
+                    }
                 }
+
             }
-            return null;
-        }else{
-            return null;
         }
+        return null;
     }
 }

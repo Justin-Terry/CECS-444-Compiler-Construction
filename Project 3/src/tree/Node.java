@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    public enum NodeType {KINT, KPLUS, ID, EQUAL, PROG, MAIN};
+    public enum NodeType {KINT, KPLUS, ID, EQUAL, PROG, MAIN, BRACE1, BRACE2, SEMI, PLUS, PARENS1, PARENS2, KPRINT };
     private NodeType type;
     private String value;
     private Node parent;
@@ -41,8 +41,14 @@ public class Node {
         if(s.equals("kplus")){ return NodeType.KPLUS; }
         if(s.equals("id")){ return NodeType.ID; }
         if(s.equals("equal")){ return NodeType.EQUAL; }
-        if(s.equals("prog")){ return NodeType.PROG; }
-        if(s.equals("main")){ return NodeType.MAIN; }
+        if(s.equals("kwdprog")){ return NodeType.PROG; }
+        if(s.equals("kwdmain")){ return NodeType.MAIN; }
+        if(s.equals("brace1")){ return NodeType.BRACE1; }
+        if(s.equals("brace2")){ return NodeType.BRACE2; }
+        if(s.equals("parens1")){ return NodeType.PARENS1; }
+        if(s.equals("parens2")){ return NodeType.PARENS2; }
+        if(s.equals("semi")){ return NodeType.SEMI; }
+        if(s.equals("kprint")){ return NodeType.KPRINT; }
         return null;
     }
 
@@ -50,27 +56,28 @@ public class Node {
         return sctNode;
     }
 
-    public void setSctNode(SymbolTableNode sctNode) {
+     public void setSctNode(SymbolTableNode sctNode) {
         this.sctNode = sctNode;
     }
 
-    public void setType(String s) {
+     public void setType(String s) {
         this.type = NodeType.valueOf(s);
     }
 
-    public String getValue() {
+     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+     public void setValue(String value) {
         this.value = value;
     }
 
-    public Node getParent() {
+     public Node getParent() {
         return parent;
     }
 
-    public void setParent(Node parent) {
+     public void setParent(Node parent) {
+//          System.out.println("Node: " + this.id + " has parent " + parent.getId() );
         this.parent = parent;
     }
 
@@ -78,7 +85,7 @@ public class Node {
         return id;
     }
 
-    public void setId(String id) {
+     public  void setId(String id) {
         this.id = id;
     }
 
@@ -90,7 +97,7 @@ public class Node {
         return this.rightChildren;
     }
 
-    public void setType(NodeType type) {
+     public void setType(NodeType type) {
         this.type = type;
     }
 
@@ -102,7 +109,7 @@ public class Node {
         this.parentId = parentId;
     }
 
-    @Override
+      @Override
     public String toString(){
         return "( " + "id: " + this.id + " | value: " + this.value + " | type: " + this.type.toString() + " | parent: " + this.parentId +
                 " | side: " + this.side + " | line: " + this.line + ")";
