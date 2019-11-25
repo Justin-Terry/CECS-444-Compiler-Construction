@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    public enum NodeType {KINT, KPLUS, ID, EQUAL, PROG, MAIN, BRACE1, BRACE2, SEMI, PLUS, PARENS1, PARENS2, KPRINT };
+    public enum NodeType {KINT, KPLUS, ID, EQUAL, PROG, MAIN, BRACE1, BRACE2, SEMI, PARENS1, PARENS2, KPRINT };
     private NodeType type;
     private String value;
     private Node parent;
@@ -77,7 +77,6 @@ public class Node {
     }
 
      public void setParent(Node parent) {
-//          System.out.println("Node: " + this.id + " has parent " + parent.getId() );
         this.parent = parent;
     }
 

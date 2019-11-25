@@ -11,6 +11,7 @@ public class Main {
     static Tree t;
     public static void main(String args[]){
         Scanner input = new Scanner(System.in);
+        ScopeTree sctTree = null;
         t = new Tree();
         while(input.hasNextLine()){
             String in = input.nextLine();
@@ -19,7 +20,13 @@ public class Main {
             }else if(in.equals("f")){
                 System.out.println(t.findNode(t.root, "1"));
             }else if(in.equals("s")){
-                createSymbolTable(t);
+                sctTree = createSymbolTable(t);
+            }else if(in.equals("e")){
+                executeTree(t);
+            }else if(in.equals("d")){
+                if(sctTree != null){
+                    sctTree.display();
+                }
             }else if(in.equals("")){
 
             } else{
@@ -29,14 +36,12 @@ public class Main {
     }
 
     private static void getNodes(String s, Tree t) {
-//        System.out.println(s);
         String type = getType(s);
         String value = getValue(s);
         String parent = getParent(s);
         String id = getId(s);
         String line = getLine(s);
         char side = getSide(s);
-//        System.out.println(type + " " + value + " " + parent + " " + id + " " + side);
         Node n = new Node(id, parent, value, line, type, side);
         t.   insertNode(n);
     }
@@ -60,7 +65,7 @@ public class Main {
         }
         return null;
     }
-            private static String getParent(String s){
+    private static String getParent(String s){
         Pattern typePattern = Pattern.compile("Parent:.*\\)");
         Matcher matcher = typePattern.matcher(s);
         while(matcher.find()) {
@@ -100,8 +105,13 @@ public class Main {
         }
         return null;
     }
-    private static void createSymbolTable(Tree t){
+    private static ScopeTree createSymbolTable(Tree t){
         ScopeTree sctTree = new ScopeTree(t);
         sctTree.display();
+        return sctTree;
+    }
+    private static void executeTree(Tree t){
+        System.out.println("Executing tree...");
+        t.executeNode(t.root);
     }
 }

@@ -72,4 +72,40 @@ public class Tree {
         }
         return null;
     }
+
+    public void executeNode(Node n){
+        if(n == null){
+            return;
+        }
+        if(n.getType() == Node.NodeType.EQUAL){
+            String lVal = n.getLeftChildren().get(0).getValue();
+            Node lValNode = n.getLeftChildren().get(0);
+            String rVal = n.getRightChildren().get(0).getValue();
+            Node rValNode = n.getRightChildren().get(0);
+            lValNode.getSctNode().updateSymbol(lVal, rVal);
+
+        }
+        if(n.getType() == Node.NodeType.KPRINT){
+            handlePrint(n.getLeftChildren().get(0));
+        }
+        else{
+            for(Node node : n.getLeftChildren()){
+                executeNode(node);
+            }
+            for(Node node : n.getRightChildren()){
+                executeNode(node);
+            }
+        }
+    }
+
+    public void handlePrint(Node n){
+        if(n.getType() == Node.NodeType.KPLUS){
+            Node left = n.getLeftChildren().get(0);
+            Node right = n.getRightChildren().get(0);
+            int result = Integer.parseInt(left.getValue()) + Integer.parseInt(right.getValue());
+            System.out.println("kprint node output: " + result);
+        } else{
+            handlePrint(n.getLeftChildren().get(0));
+        }
+    }
 }
